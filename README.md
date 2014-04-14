@@ -7,7 +7,7 @@ JSON Patch, JSON Pointer, and JSON Schema Validation in Objective-C
 
 This Objective-C library is a collection of classes and categories that implement three powerful new features (JSON Patch, JSON Pointer, JSON Schema) that work with JSON data (represented by NSDictionaries and NSArrays in Objective-C).  Unit tests are included for each component.
 
-- [JSON Patch](https://tools.ietf.org/html/rfc6902) - IETF RFC6902: Create and apply operation patches (add, remove, copy, move, test, _get) to serially transform JSON Data.  ***This functionality was inspired by [Starcounter-Jack's](https://github.com/Starcounter-Jack) [JavaScript implementation of JSON Patch](https://github.com/Starcounter-Jack/JSON-Patch).***
+- [JSON Patch](https://tools.ietf.org/html/rfc6902) - IETF RFC6902: Create and apply operation patches (add, remove, copy, move, test, _get) to serially transform JSON Data.  ***This functionality was inspired by [Joachim Wester's](https://github.com/Starcounter-Jack) [JavaScript implementation of JSON Patch](https://github.com/Starcounter-Jack/JSON-Patch).***
     -  Example Patch Copy:  
         
         ```objc
