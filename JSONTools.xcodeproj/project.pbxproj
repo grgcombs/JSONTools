@@ -20,6 +20,9 @@
 		37BDF4F718FB18EE00BF9705 /* JSONPatchDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BDF4F618FB18EE00BF9705 /* JSONPatchDictionary.m */; };
 		37BDF4FA18FB29AA00BF9705 /* JSONPatchArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BDF4F918FB29AA00BF9705 /* JSONPatchArray.m */; };
 		37BDF4FE18FB74C500BF9705 /* JSONPatchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BDF4FD18FB74C500BF9705 /* JSONPatchInfo.m */; };
+		37F843B118FCE674003B20CC /* NSArray+JSONDeepMutable.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F843B018FCE674003B20CC /* NSArray+JSONDeepMutable.m */; };
+		37F843B418FCE68C003B20CC /* NSDictionary+JSONDeepMutable.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F843B318FCE68C003B20CC /* NSDictionary+JSONDeepMutable.m */; };
+		37F843B718FCE9B7003B20CC /* JSONDeeplyMutable.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F843B618FCE9B6003B20CC /* JSONDeeplyMutable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +50,12 @@
 		37BDF4F918FB29AA00BF9705 /* JSONPatchArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONPatchArray.m; sourceTree = "<group>"; };
 		37BDF4FC18FB74C500BF9705 /* JSONPatchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPatchInfo.h; sourceTree = "<group>"; };
 		37BDF4FD18FB74C500BF9705 /* JSONPatchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONPatchInfo.m; sourceTree = "<group>"; };
+		37F843AF18FCE674003B20CC /* NSArray+JSONDeepMutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONDeepMutable.h"; sourceTree = "<group>"; };
+		37F843B018FCE674003B20CC /* NSArray+JSONDeepMutable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JSONDeepMutable.m"; sourceTree = "<group>"; };
+		37F843B218FCE68C003B20CC /* NSDictionary+JSONDeepMutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONDeepMutable.h"; sourceTree = "<group>"; };
+		37F843B318FCE68C003B20CC /* NSDictionary+JSONDeepMutable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONDeepMutable.m"; sourceTree = "<group>"; };
+		37F843B518FCE94A003B20CC /* JSONDeeplyMutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONDeeplyMutable.h; sourceTree = "<group>"; };
+		37F843B618FCE9B6003B20CC /* JSONDeeplyMutable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONDeeplyMutable.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +134,7 @@
 				37BDF4C518FAF1DD00BF9705 /* JSONTools.h */,
 				37A5005018FC7D5200A15B0F /* JSONPatch */,
 				37A5005118FC7D5F00A15B0F /* JSONPointer */,
+				37F843AE18FCE5C6003B20CC /* Utilities */,
 				37BDF4C318FAF1DD00BF9705 /* Supporting Files */,
 			);
 			path = JSONTools;
@@ -155,6 +165,19 @@
 				37BDF4D918FAF1DD00BF9705 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37F843AE18FCE5C6003B20CC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				37F843B518FCE94A003B20CC /* JSONDeeplyMutable.h */,
+				37F843B618FCE9B6003B20CC /* JSONDeeplyMutable.m */,
+				37F843AF18FCE674003B20CC /* NSArray+JSONDeepMutable.h */,
+				37F843B018FCE674003B20CC /* NSArray+JSONDeepMutable.m */,
+				37F843B218FCE68C003B20CC /* NSDictionary+JSONDeepMutable.h */,
+				37F843B318FCE68C003B20CC /* NSDictionary+JSONDeepMutable.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +250,9 @@
 				37A5004F18FC3FC700A15B0F /* JSONPatchApplyTests.m in Sources */,
 				37BDF4ED18FB121A00BF9705 /* NSDictionary+JSONPointer.m in Sources */,
 				37A5004D18FB9FB200A15B0F /* JSONPointer.m in Sources */,
+				37F843B118FCE674003B20CC /* NSArray+JSONDeepMutable.m in Sources */,
+				37F843B718FCE9B7003B20CC /* JSONDeeplyMutable.m in Sources */,
+				37F843B418FCE68C003B20CC /* NSDictionary+JSONDeepMutable.m in Sources */,
 				37A5004A18FB9E7900A15B0F /* NSArray+JSONPointer.m in Sources */,
 				37BDF4DD18FAF1DD00BF9705 /* JSONPointerTests.m in Sources */,
 			);

@@ -9,6 +9,7 @@
 
 @import XCTest;
 #import "JSONPatch.h"
+#import "JSONDeeplyMutable.h"
 
 @interface JSONPatchApplyTests : XCTestCase
 
@@ -29,7 +30,7 @@
 - (void)testShouldApplyAdd
 {
     NSMutableDictionary *initial = [@{@"foo": @1,
-                                      @"baz": [@[@{@"qux": @"hello"}] mutableCopy]} mutableCopy];
+                                      @"baz": @[@{@"qux": @"hello"}]} copyAsDeeplyMutableJSON];
     NSMutableDictionary *obj = [initial mutableCopy];
     NSMutableDictionary *expected = [initial mutableCopy];
 
@@ -78,8 +79,8 @@
 - (void)testShouldApplyRemove
 {
     NSMutableDictionary *obj = [@{@"foo": @1,
-                                  @"baz": @[[@{@"qux": @"hello"} mutableCopy]],
-                                  @"bar": @[@1,@2,@3,@4]} mutableCopy];
+                                  @"baz": @[@{@"qux": @"hello"}],
+                                  @"bar": @[@1,@2,@3,@4]} copyAsDeeplyMutableJSON];
 
     NSMutableDictionary *expected = [obj mutableCopy];
     [expected removeObjectForKey:@"bar"];
@@ -88,7 +89,7 @@
     XCTAssertEqualObjects(obj, expected, @"Failed to apply remove patch, expected %@, found %@", expected, obj);
 
     expected = [@{@"foo": @1,
-                  @"baz": @[[@{} mutableCopy]]} mutableCopy];
+                  @"baz": @[@{}]} copyAsDeeplyMutableJSON];
     [JSONPatch applyPatches:@[@{@"op": @"remove",
                                 @"path": @"/baz/0/qux"}] toCollection:obj];
     XCTAssertEqualObjects(obj, expected, @"Failed to apply remove patch, expected %@, found %@", expected, obj);
@@ -97,7 +98,7 @@
 - (void)testShouldApplyReplace
 {
     NSMutableDictionary *obj = [@{@"foo": @1,
-                                  @"baz": @[[@{@"qux": @"hello"} mutableCopy]]} mutableCopy];
+                                  @"baz": @[@{@"qux": @"hello"}]} copyAsDeeplyMutableJSON];
 
     NSMutableDictionary *expected = [obj mutableCopy];
     expected[@"foo"] = @[@1,@2,@3,@4];
@@ -133,7 +134,7 @@
 - (void)testShouldApplyMove
 {
     NSMutableDictionary *obj = [@{@"foo": @1,
-                                  @"baz": [@[[@{@"qux": @"hello"} mutableCopy]] mutableCopy]} mutableCopy];
+                                  @"baz": @[@{@"qux": @"hello"}]} copyAsDeeplyMutableJSON];
     NSMutableDictionary *expected = [obj mutableCopy];
 
     expected[@"bar"] = @1;
@@ -154,7 +155,7 @@
 - (void)testShouldApplyCopy
 {
     NSMutableDictionary *obj = [@{@"foo": @1,
-                                  @"baz": [@[[@{@"qux": @"hello"} mutableCopy]] mutableCopy]} mutableCopy];
+                                  @"baz": @[@{@"qux": @"hello"}]} copyAsDeeplyMutableJSON];
     NSMutableDictionary *expected = [obj mutableCopy];
 
     expected[@"bar"] = @1;
