@@ -8,6 +8,8 @@
 //  See LICENSE.txt for details.
 
 #import "JSONPointer.h"
+#import "NSArray+JSONPointer.h"
+#import "NSDictionary+JSONPointer.h"
 
 @implementation JSONPointer
 
@@ -64,7 +66,7 @@
 	if ([pointer hasPrefix:@"#"])
     {
 		pointer = [pointer substringFromIndex:1];
-		pointer = [pointer stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        pointer = [pointer stringByRemovingPercentEncoding];
 	}
     return pointer;
 }

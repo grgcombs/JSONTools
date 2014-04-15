@@ -8,8 +8,8 @@
 //  See LICENSE.txt for details.
 
 @import Foundation;
-#import "NSArray+JSONPointer.h"
-#import "NSDictionary+JSONPointer.h"
+#import <JSONTools/NSArray+JSONPointer.h>
+#import <JSONTools/NSDictionary+JSONPointer.h>
 
 @interface JSONPointer : NSObject
 

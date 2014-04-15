@@ -317,8 +317,12 @@
     __block BOOL changed = NO;
     __block BOOL deleted = NO;
 
+    NSCharacterSet *allowedChars = [NSCharacterSet URLFragmentAllowedCharacterSet];
+
     [oldDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSString *escapedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *escapedKey = [key stringByAddingPercentEncodingWithAllowedCharacters:allowedChars];
+        //                     [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
         NSString *escapedPath = [path stringByAppendingFormat:@"/%@", escapedKey];
         id newValue = newDict[key];
 
@@ -343,7 +347,8 @@
     }
 
     [newDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSString *escapedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *escapedKey = [key stringByAddingPercentEncodingWithAllowedCharacters:allowedChars];
+        //                     [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *escapedPath = [path stringByAppendingFormat:@"/%@", escapedKey];
         id oldValue = oldDict[key];
         if (!oldValue)

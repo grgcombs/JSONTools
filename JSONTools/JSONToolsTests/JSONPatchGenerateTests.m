@@ -7,9 +7,8 @@
 //  Copyright (C) 2014 Gregory Combs [gcombs at gmail]
 //  See LICENSE.txt for details.
 
-@import XCTest;
-#import "JSONPatch.h"
-#import "JSONDeeplyMutable.h"
+#import <XCTest/XCTest.h>
+#import <JSONTools/JSONTools.h>
 
 @interface JSONPatchGenerateTests : XCTestCase
 

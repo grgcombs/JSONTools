@@ -7,7 +7,7 @@
 //  Copyright (C) 2014 Gregory Combs [gcombs at gmail]
 //  See LICENSE.txt for details.
 
-#import "JSONTools.h"
+@import Foundation;
 
 @interface JSONPatch : NSObject
 
@@ -19,7 +19,7 @@
  *      `{"op":"add",  "path": "/foo/0/bar",  "value": "thing"}`
  *      - `op` is one of: "add", "remove", "copy", "move", "test", "_get"
  *      - `path` is a JSON Pointer (RFC 6901) (see JSONPointer.h)
- *      - `value` is an objective-c object (
+ *      - `value` is an objective-c object
  *
  *  @param collection A ***mutable*** dictionary or ***mutable*** array to patch
  *
