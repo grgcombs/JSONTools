@@ -10,6 +10,7 @@
 		37A5004A18FB9E7900A15B0F /* NSArray+JSONPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A5004918FB9E7900A15B0F /* NSArray+JSONPointer.m */; };
 		37A5004D18FB9FB200A15B0F /* JSONPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A5004C18FB9FB200A15B0F /* JSONPointer.m */; };
 		37A5004F18FC3FC700A15B0F /* JSONPatchApplyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A5004E18FC3FC700A15B0F /* JSONPatchApplyTests.m */; };
+		37A5005318FC9E0200A15B0F /* JSONPatchGenerateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A5005218FC9E0200A15B0F /* JSONPatchGenerateTests.m */; };
 		37BDF4CF18FAF1DD00BF9705 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BDF4CE18FAF1DD00BF9705 /* XCTest.framework */; };
 		37BDF4D018FAF1DD00BF9705 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BDF4C018FAF1DD00BF9705 /* Foundation.framework */; };
 		37BDF4D218FAF1DD00BF9705 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BDF4D118FAF1DD00BF9705 /* UIKit.framework */; };
@@ -31,6 +32,7 @@
 		37A5004B18FB9FB200A15B0F /* JSONPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPointer.h; sourceTree = "<group>"; };
 		37A5004C18FB9FB200A15B0F /* JSONPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONPointer.m; sourceTree = "<group>"; };
 		37A5004E18FC3FC700A15B0F /* JSONPatchApplyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONPatchApplyTests.m; sourceTree = "<group>"; };
+		37A5005218FC9E0200A15B0F /* JSONPatchGenerateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONPatchGenerateTests.m; sourceTree = "<group>"; };
 		37BDF4C018FAF1DD00BF9705 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37BDF4C418FAF1DD00BF9705 /* JSONTools-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONTools-Prefix.pch"; sourceTree = "<group>"; };
 		37BDF4C518FAF1DD00BF9705 /* JSONTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONTools.h; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				37BDF4DC18FAF1DD00BF9705 /* JSONPointerTests.m */,
 				37A5004E18FC3FC700A15B0F /* JSONPatchApplyTests.m */,
+				37A5005218FC9E0200A15B0F /* JSONPatchGenerateTests.m */,
 				37BDF4D718FAF1DD00BF9705 /* Supporting Files */,
 			);
 			path = JSONToolsTests;
@@ -250,6 +253,7 @@
 				37A5004F18FC3FC700A15B0F /* JSONPatchApplyTests.m in Sources */,
 				37BDF4ED18FB121A00BF9705 /* NSDictionary+JSONPointer.m in Sources */,
 				37A5004D18FB9FB200A15B0F /* JSONPointer.m in Sources */,
+				37A5005318FC9E0200A15B0F /* JSONPatchGenerateTests.m in Sources */,
 				37F843B118FCE674003B20CC /* NSArray+JSONDeepMutable.m in Sources */,
 				37F843B718FCE9B7003B20CC /* JSONDeeplyMutable.m in Sources */,
 				37F843B418FCE68C003B20CC /* NSDictionary+JSONDeepMutable.m in Sources */,

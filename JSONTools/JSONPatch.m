@@ -176,4 +176,161 @@
             removeResult != NULL);
 }
 
+#pragma mark - Patch Generation
+
++ (NSArray *)createPatchesComparingCollectionsOld:(id)oldCollection toNew:(id)newCollection
+{
+    return [self compareOldCollection:oldCollection toNew:newCollection path:@""];
+}
+
++ (NSArray *)compareOldCollection:(id)oldCollection toNew:(id)newCollection path:(NSString *)path
+{
+    if ([self isCompatibleDictionaries:oldCollection dict2:newCollection])
+    {
+        return [self compareOldDictionary:oldCollection toNew:newCollection path:path];
+    }
+    if ([self isCompatibleArrays:oldCollection array2:newCollection])
+    {
+        return [self compareOldArray:oldCollection toNew:newCollection path:path];
+    }
+    return nil;
+}
+
++ (NSArray *)compareValue:(id)oldValue toNew:(id)newValue path:(NSString *)path replacement:(BOOL *)hasReplacementPtr
+{
+    NSMutableArray *patches = [[NSMutableArray alloc] init];
+
+    if ([self isCompatibleDictionaries:oldValue dict2:newValue])
+    {
+        NSArray *subPatches = [self compareOldDictionary:oldValue toNew:newValue path:path];
+        if (subPatches.count) {
+            [patches addObjectsFromArray:subPatches];
+        }
+    }
+    else if ([self isCompatibleArrays:oldValue array2:newValue])
+    {
+        NSArray *subPatches = [self compareOldArray:oldValue toNew:newValue path:path];
+        if (subPatches.count) {
+            [patches addObjectsFromArray:subPatches];
+        }
+    }
+    else if (oldValue != newValue ||
+            ![oldValue isEqual:newValue])
+    {
+            *hasReplacementPtr = YES;
+            [patches addObject:@{@"op": @"replace",
+                                 @"path": path,
+                                 @"value": newValue}];
+    }
+    return patches;
+}
+
++ (NSArray *)compareOldDictionary:(NSDictionary *)oldDict toNew:(NSDictionary *)newDict path:(NSString *)path
+{
+    NSMutableArray *patches = [[NSMutableArray alloc] init];
+    __block BOOL changed = NO;
+    __block BOOL deleted = NO;
+
+    [oldDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSString *escapedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *escapedPath = [path stringByAppendingFormat:@"/%@", escapedKey];
+        id newValue = newDict[key];
+
+        if (!newValue) {
+            [patches addObject:@{@"op": @"remove",
+                                 @"path": escapedPath}];
+            deleted = YES;
+        }
+        else
+        {
+            NSArray *subPatches = [self compareValue:obj toNew:newValue path:escapedPath replacement:&changed];
+            if (subPatches.count) {
+                [patches addObjectsFromArray:subPatches];
+            }
+        }
+    }];
+
+    if (!deleted &&
+        newDict.count == oldDict.count)
+    {
+        return patches;
+    }
+
+    [newDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSString *escapedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *escapedPath = [path stringByAppendingFormat:@"/%@", escapedKey];
+        id oldValue = oldDict[key];
+        if (!oldValue)
+        {
+            [patches addObject:@{@"op": @"add",
+                                 @"path": escapedPath,
+                                 @"value": obj}];
+        }
+    }];
+
+    return patches;
+}
+
++ (NSArray *)compareOldArray:(NSArray *)oldArray toNew:(NSArray *)newArray path:(NSString *)path
+{
+    NSMutableArray *patches = [[NSMutableArray alloc] init];
+    NSUInteger oldCount = [oldArray count];
+    NSUInteger newCount = [newArray count];
+    NSUInteger maxCount = MAX(oldCount, newCount);
+    NSUInteger index = maxCount - 1;
+    while (index != 0)
+    {
+        NSString *indexPath = [path stringByAppendingFormat:@"/%lu", (unsigned long)index];
+        BOOL changes = NO;
+
+        if (index < oldCount &&
+            index < newCount)
+        {
+            id oldValue = oldArray[index];
+            id newValue = newArray[index];
+            NSArray *subPatches = [self compareValue:oldValue toNew:newValue path:indexPath replacement:&changes];
+            if (subPatches.count)
+            {
+                [patches addObjectsFromArray:subPatches];
+            }
+        }
+        else if (index < newCount)
+        {
+            id newValue = newArray[index];
+            [patches addObject:@{@"op": @"add",
+                                 @"path": indexPath,
+                                 @"value": newValue}];
+        }
+        else if (index < oldCount)
+        {
+            [patches addObject:@{@"op": @"remove",
+                                 @"path": indexPath}];
+        }
+        index--;
+    }
+    return patches;
+}
+
++ (BOOL)isCompatibleCollection:(id)collection toCollection:(id)otherCollection
+{
+    return ([self isCompatibleDictionaries:collection dict2:otherCollection] ||
+            [self isCompatibleArrays:collection array2:otherCollection]);
+}
+
++ (BOOL)isCompatibleDictionaries:(NSDictionary *)dict1 dict2:(NSDictionary *)dict2
+{
+    if (!dict1 || !dict2)
+        return NO;
+    return ([dict1 isKindOfClass:[NSDictionary class]] &&
+            [dict2 isKindOfClass:[NSDictionary class]]);
+}
+
++ (BOOL)isCompatibleArrays:(NSArray *)array1 array2:(NSArray *)array2
+{
+    if (!array1 || !array2)
+        return NO;
+    return ([array1 isKindOfClass:[NSDictionary class]] &&
+            [array2 isKindOfClass:[NSDictionary class]]);
+}
+
 @end

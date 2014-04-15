@@ -29,4 +29,6 @@
  */
 + (id)applyPatches:(NSArray *)patches toCollection:(id)collection;
 
++ (NSArray *)createPatchesComparingCollectionsOld:(id)oldCollection toNew:(id)newCollection;
+
 @end

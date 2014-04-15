@@ -13,24 +13,26 @@ This Objective-C library is a collection of classes and categories that implemen
         ```objc
         
             #import "JSONTools.h"
-        
+            #import "JSONDeeplyMutable.h"
+
             - (void)examplePatchCopy
             {
-                /* assuming _obj is a (deeply mutable) NSMutableDictionary like this:
-                    {"foo": 1,
-                     "baz": [{"qux": "hello"}]}
-                */
+                 NSMutableDictionary *obj = nil;
+                 NSMutableDictionary *expected = nil;
+                 NSDictionary *patch = nil;
+                 
+                 obj = [@{@"foo": @1,
+                          @"baz": @[@{@"qux": @"hello"}]} copyAsDeeplyMutableJSON];
                 
-                 NSDictionary *patch = @{@"op": @"copy",
-                                         @"from": @"/foo",
-                                         @"path": @"/bar"}
-                 NSNumber *success = [JSONPatch applyPatches:@[patch] toCollection:_obj];
+                 patch = @{@"op": @"copy",
+                           @"from": @"/foo",
+                           @"path": @"/bar"};
+                           
+                 [JSONPatch applyPatches:@[patch] toCollection:obj];
 
-                /* _obj will now look like this:
-                    {"foo": 1,
-                     "baz": [{"qux": "hello"}],
-                     "bar": 1}
-                */
+                 expected = [@{@"foo": @1,
+                               @"baz": @[@{@"qux": @"hello"}],
+                               @"bar": @1} copyAsDeeplyMutableJSON];
             }
 
         ```
@@ -39,7 +41,26 @@ This Objective-C library is a collection of classes and categories that implemen
         
         ```objc
         
-        // This capability is still in progress
+            #import "JSONTools.h"
+
+            - (void)examplePatchGeneration
+            {
+                NSDictionary *objA = nil;
+                NSDictionary *objB = nil;
+                NSArray *patches = nil;
+                NSArray *expected = nil;
+                
+                objA = @{@"user": @{@"firstName": @"Albert",
+                                    @"lastName": @"Einstein"}};
+            
+                objB = @{@"user": @{@"firstName": @"Albert"}};
+            
+                patches = [JSONPatch createPatchesComparingCollectionsOld:objA toNew:objB];
+                                            
+                expected = @[@{@"op": @"remove",
+                               @"path": @"/user/lastName"}];
+
+            }
         
         ```
         
@@ -50,28 +71,26 @@ This Objective-C library is a collection of classes and categories that implemen
         ```objc
         
             #import "JSONTools.h"
-        
+                
             - (void)exampleJSONPointer
             {
-                /* assuming _obj is an NSDictionary like this:
-                   {
-                     "data": {
-                       "foo": ["bar", "baz"],
-                       "bork": {
-                         "crud": "stuff",
-                         "guts": "and things"                       }
-                     }
-                   }
-                */
-                
-                 NSString *result1 = [_obj valueForJSONPointer: @"/data/foo/1" ];
-                 // Yields -> "baz"
-                 
-                 NSString *result2 = [_obj valueForJSONPointer: @"/data/bork/guts"];
-                 // Yields -> "and things"
-                 
-                 NSDictionary *result3 = [_obj valueForJSONPointer: @"/data/bork"];
-                 // Yields -> {"crud": "stuff","guts": "and things"}            }
+                NSDictionary *obj = @{
+                    @"data": @{
+                        @"foo": @[@"bar", @"baz"],
+                        @"bork": @{
+                            @"crud": @"stuff",
+                            @"guts": @"and things"                        }
+                    }
+                };
+
+                NSString *result1 = [_obj valueForJSONPointer: @"/data/foo/1" ];
+                // Yields -> "baz"
+
+                NSString *result2 = [_obj valueForJSONPointer: @"/data/bork/guts"];
+                // Yields -> "and things"
+
+                NSDictionary *result3 = [_obj valueForJSONPointer: @"/data/bork"];
+                // Yields -> {"crud": "stuff","guts": "and things"}            }
 
         ```
 
