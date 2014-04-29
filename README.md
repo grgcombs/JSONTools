@@ -1,7 +1,9 @@
-JSON Tools (Objective-C)
+JSON Tools (Objective-C)  
+=========
 by [Gregory Combs](https://github.com/grgcombs)  
 (MIT License - 2014)
-=========
+
+[![Build Status](https://travis-ci.org/grgcombs/JSONTools.svg?branch=master)](https://travis-ci.org/grgcombs/JSONTools)
 
 JSON Patch, JSON Pointer, and JSON Schema Validation in Objective-C
 
@@ -79,7 +81,8 @@ This Objective-C library is a collection of classes and categories that implemen
                         @"foo": @[@"bar", @"baz"],
                         @"bork": @{
                             @"crud": @"stuff",
-                            @"guts": @"and things"                        }
+                            @"guts": @"and things"
+                        }
                     }
                 };
 
@@ -90,7 +93,8 @@ This Objective-C library is a collection of classes and categories that implemen
                 // Yields -> "and things"
 
                 NSDictionary *result3 = [_obj valueForJSONPointer: @"/data/bork"];
-                // Yields -> {"crud": "stuff","guts": "and things"}            }
+                // Yields -> {"crud": "stuff","guts": "and things"}
+            }
 
         ```
 
