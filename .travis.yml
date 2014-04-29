@@ -1,0 +1,8 @@
+language: objective-c
+before_install:
+    - brew update
+    - brew uninstall xctool
+    - brew install xctool
+    - pod install
+script:
+    - xctool -project JSONTools.xcodeproj -scheme JSONToolsTests -sdk iphonesimulator test ONLY_ACTIVE_ARCH=NO
