@@ -35,6 +35,11 @@
         NSInteger t = 1;
         
         while (YES) {
+            // path not found, fail this
+            if (!object || [object isKindOfClass:NSNull.class]) {
+                result = @(0);
+                break;
+            }
             if (![object isKindOfClass:[NSMutableDictionary class]] &&
                 ![object isKindOfClass:[NSMutableArray class]] &&
                 [object respondsToSelector:@selector(mutableCopy)])
