@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:JSONTools.xcodeproj">
+      location = "self:JSONToolsTests.xcodeproj">
    </FileRef>
 </Workspace>

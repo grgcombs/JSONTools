@@ -9,6 +9,17 @@ JSON Patch, JSON Pointer, and JSON Schema Validation in Objective-C
 
 This Objective-C library is a collection of classes and categories that implement three powerful new features (JSON Patch, JSON Pointer, JSON Schema) that work with JSON data (represented by NSDictionaries and NSArrays in Objective-C).  Unit tests are included for each component.
 
+## To Run the Tests
+
+To build the test project, be sure to do the following:
+
+1. Install CocoaPods (use homebrew) if you haven't already.
+2. Run `pod install` from the command line.  
+3. Open the newly created **JSONToolsTests.xcworkspace** document ***not*** the JSONToolsTests.xcodeproj document.
+4. Hit Command-U to run the tests.
+
+## Features
+
 - [JSON Patch](https://tools.ietf.org/html/rfc6902) - IETF RFC6902: Create and apply operation patches (add, remove, copy, move, test, _get) to serially transform JSON Data.  ***This functionality was inspired by [Joachim Wester's](https://github.com/Starcounter-Jack) [JavaScript implementation of JSON Patch](https://github.com/Starcounter-Jack/JSON-Patch).***
     -  Example Patch Copy:  
         
@@ -98,8 +109,8 @@ This Objective-C library is a collection of classes and categories that implemen
 
         ```
 
-- <del>[JSON Schema](http://tools.ietf.org/html/draft-zyp-json-schema-04) with [Validation](http://tools.ietf.org/html/draft-fge-json-schema-validation-00) - IETF Draft v4, 2013</del>: (*TBD / WIP*).  ***This functionality will likely be based on [Sam Duke's](https://github.com/samskiter) [KiteJSONValidator](https://github.com/samskiter/KiteJSONValidator).***
-    -  Example:  
+- [JSON Schema](http://tools.ietf.org/html/draft-zyp-json-schema-04) with [Validation](http://tools.ietf.org/html/draft-fge-json-schema-validation-00) - IETF Draft v4, 2013.   ***This functionality is based on [Sam Duke's](https://github.com/samskiter) [KiteJSONValidator](https://github.com/samskiter/KiteJSONValidator)*** but adds additional validations and tests for the JSON-Schema `format` parameter.
+    -  Example #1:  
 
         ```json
         
@@ -115,8 +126,51 @@ This Objective-C library is a collection of classes and categories that implemen
                        }
                    }
                },
-               "valid_data": [0, 1, 2, 3, 4, 5],
-               "invalid_data": [-12, "Abysmal", null, -141]
+               "validData": [0, 1, 2, 3, 4, 5],
+               "invalidData": [-12, "Abysmal", null, -141]
             }
+        ```
+        
+        ```objc
+        
+            /* 
+               Assuming that variables are assigned using JSON above: 
+                 schema is an NSDictionary
+                 validData and invalidData are NSArrays
+             */
+            
+            BOOL success = NO;        
+            JSONSchemaValidator *validator = [JSONSchemaValidator new];
+                    
+            success = [validator validateJSONInstance:validData withSchema:schema];
+            // success == YES, All validData values are positive integers.
+            
+            success = [validator validateJSONInstance:invalidData withSchema:schema];
+            // success == NO, invalidData array isn't comprised of positive integers.
+
+        ```
+
+        
+   - Example #2:
+   
+        ```objc
+        
+            NSDictionary *schema = nil;
+            id testData = nil;
+            BOOL success = NO;
+            
+            JSONSchemaValidator *validator = [JSONSchemaValidator new];
+            validator.formatValidationEnabled = YES;
+        
+            schema = @{@"format": @"date-time"};
+            testData = @"2000-02-29T08:30:06.283185Z";
+            success = [validator validateJSONInstance:testData withSchema:schema];
+            // success == YES, February 2000 had 29 days.
+            
+            schema = @{@"format": @"ipv6"};
+            testData = @"12345::";
+            success = [validator validateJSONInstance:testData withSchema:schema];
+            // success == NO, the IPv6 address has out-of-range values.
+
         ```
         
