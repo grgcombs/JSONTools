@@ -5,6 +5,7 @@ before_install:
     - brew update
     - brew uninstall xctool
     - brew install xctool
+    - gem update cocoapods
 script:
     - pod install
     - xctool -workspace JSONToolsTests.xcworkspace -scheme JSONToolsTests -sdk iphonesimulator test ONLY_ACTIVE_ARCH=NO
