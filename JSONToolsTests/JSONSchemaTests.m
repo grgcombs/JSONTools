@@ -2,9 +2,8 @@
 //  JSONSchemaTests.m
 //  JSONTools
 //
-//  Created by Gregory Combs on 4/29/14.
-//  Copyright (c) 2014 Sleestacks. All rights reserved.
-//
+//  Copyright (C) 2014 Gregory Combs [gcombs at gmail]
+//  See LICENSE.txt for details.
 
 @import XCTest;
 #import "JSONSchemaValidator.h"

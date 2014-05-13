@@ -9,4 +9,4 @@
 
 #import "JSONPointer.h"
 #import "JSONPatch.h"
-// #import "JSONSchema.h" -- Not ready yet
+#import "JSONSchemaValidator.h"
