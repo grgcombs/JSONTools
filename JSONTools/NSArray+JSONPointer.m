@@ -32,6 +32,11 @@
 
 - (NSInteger)indexForJSONPointerComponent:(NSString *)component
 {
+    return [self indexForJSONPointerComponent:component allowOutOfBounds:NO];
+}
+
+- (NSInteger)indexForJSONPointerComponent:(NSString *)component allowOutOfBounds:(BOOL)allowOutOfBounds
+{
     if (!component || ![component isKindOfClass:[NSString class]])
         return NSNotFound;
 
@@ -65,9 +70,10 @@
         return NSNotFound;
     }
 
-    // Avoid any out-of-bounds exceptions
+    // Avoid any out-of-bounds exceptions, if necessary
     NSInteger index = [component integerValue];
-    if (self.count <= index)
+    if (!allowOutOfBounds &&
+        self.count <= index)
     {
         return NSNotFound;
     }

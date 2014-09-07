@@ -36,14 +36,28 @@
 - (id)valueForJSONPointerComponent:(NSString *)component;
 
 /**
- *  Given a single JSON Pointer component, like "bar" from "/foo/bar/0", return the
+ *  Given a single JSON Pointer component, like "bar" or "0" from "/foo/bar/0", return the
  *  the receiver's corresponding array index.  In general you should use the JSONPointer
  *  class methods instead, as this method is limited in the pointer's scope.
  *
- *  @param component A string in the form of a JSON Pointer component, like "bar".
+ *  @param component A string in the form of a JSON Pointer component, like "bar" or "0".
  *
  *  @return The pointer component's corresponding array index, or NSNotFound.
  */
 - (NSInteger)indexForJSONPointerComponent:(NSString *)component;
+
+/**
+ *  Given a single JSON Pointer component, like "bar" or "0" from "/foo/bar/0", return the
+ *  the receiver's corresponding array index.  In general you should use the JSONPointer
+ *  class methods instead, as this method is limited in the pointer's scope.
+ *
+ *  @param component A string in the form of a JSON Pointer component, like "bar" or "0".
+ *  @param allowOutOfBounds A boolean indicating whether to permit out-of-bounds array indexes.
+ *         Such indexes should be treated with care, as they are not "navigable" in the array and
+ *         will trigger exceptions.  They are are useful when used in conjunction with JSON Patch, however.
+ *
+ *  @return The pointer component's corresponding array index, or NSNotFound.
+ */
+- (NSInteger)indexForJSONPointerComponent:(NSString *)component allowOutOfBounds:(BOOL)allowOutOfBounds;
 
 @end

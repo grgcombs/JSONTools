@@ -67,7 +67,7 @@
                                                       @{@"cell": @"456-3533"}]} copyAsDeeplyMutableJSON];
 
     NSArray *patches = [JSONPatch createPatchesComparingCollectionsOld:objA toNew:objB];
-    XCTAssertTrue(patches.count > 1, @"Failed to generate a composite replace/add patch: %@", patches);
+    XCTAssertTrue(patches.count == 3, @"Failed to generate a composite replace/add patch: %@", patches);
 
     NSNumber *result = [JSONPatch applyPatches:patches toCollection:objA];
     XCTAssertNotNil(result, @"Patch apply results should not be nil");

@@ -50,7 +50,7 @@
             if ([object isKindOfClass:[NSMutableArray class]])
             {
                 NSString *component = pathKeys[t];
-                NSInteger index = [(NSMutableArray *)object indexForJSONPointerComponent:component];
+                NSInteger index = [(NSMutableArray *)object indexForJSONPointerComponent:component allowOutOfBounds:YES];
                 if (index == NSNotFound)
                     break;
 
@@ -219,7 +219,8 @@
             [patches addObjectsFromArray:subPatches];
         }
     }
-    else if (oldValue != newValue ||
+    else if (oldValue &&
+             newValue &&
             ![oldValue isEqual:newValue])
     {
             *hasReplacementPtr = YES;
@@ -282,8 +283,8 @@
     NSUInteger oldCount = [oldArray count];
     NSUInteger newCount = [newArray count];
     NSUInteger maxCount = MAX(oldCount, newCount);
-    NSUInteger index = maxCount - 1;
-    while (index != 0)
+    NSInteger index = maxCount - 1;
+    while (index >= 0)
     {
         NSString *indexPath = [path stringByAppendingFormat:@"/%lu", (unsigned long)index];
         BOOL changes = NO;
@@ -334,8 +335,8 @@
 {
     if (!array1 || !array2)
         return NO;
-    return ([array1 isKindOfClass:[NSDictionary class]] &&
-            [array2 isKindOfClass:[NSDictionary class]]);
+    return ([array1 isKindOfClass:[NSArray class]] &&
+            [array2 isKindOfClass:[NSArray class]]);
 }
 
 @end
