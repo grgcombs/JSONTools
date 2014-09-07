@@ -283,7 +283,7 @@
     NSInteger newCount = [newArray count];
     NSInteger maxCount = MAX(oldCount, newCount);
     NSInteger index = maxCount - 1;
-    while (index > 0)
+    while (index >= 0)
     {
         NSString *indexPath = [path stringByAppendingFormat:@"/%lu", (unsigned long)index];
         BOOL changes = NO;
