@@ -279,11 +279,11 @@
 + (NSArray *)compareOldArray:(NSArray *)oldArray toNew:(NSArray *)newArray path:(NSString *)path
 {
     NSMutableArray *patches = [[NSMutableArray alloc] init];
-    NSUInteger oldCount = [oldArray count];
-    NSUInteger newCount = [newArray count];
-    NSUInteger maxCount = MAX(oldCount, newCount);
-    NSUInteger index = maxCount - 1;
-    while (index != 0)
+    NSInteger oldCount = [oldArray count];
+    NSInteger newCount = [newArray count];
+    NSInteger maxCount = MAX(oldCount, newCount);
+    NSInteger index = maxCount - 1;
+    while (index > 0)
     {
         NSString *indexPath = [path stringByAppendingFormat:@"/%lu", (unsigned long)index];
         BOOL changes = NO;
@@ -334,8 +334,8 @@
 {
     if (!array1 || !array2)
         return NO;
-    return ([array1 isKindOfClass:[NSDictionary class]] &&
-            [array2 isKindOfClass:[NSDictionary class]]);
+    return ([array1 isKindOfClass:[NSArray class]] &&
+            [array2 isKindOfClass:[NSArray class]]);
 }
 
 @end
