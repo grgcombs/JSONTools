@@ -12,10 +12,15 @@
 
 - (NSMutableDictionary *)copyAsDeeplyMutableJSON
 {
-    NSMutableDictionary * ret = [[NSMutableDictionary alloc] initWithCapacity:[self count]];
+    return [self copyAsDeeplyMutableJSONWithExceptions:YES];
+}
+
+- (NSMutableDictionary *)copyAsDeeplyMutableJSONWithExceptions:(BOOL)throwsExceptions
+{
+    NSMutableDictionary * ret = [[NSMutableDictionary alloc] init];
 
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        id newCopy = [JSONDeepMutable copyAsDeeplyMutableValue:obj];
+        id newCopy = [JSONDeepMutable copyAsDeeplyMutableValue:obj throwsExceptions:throwsExceptions];
         if (newCopy)
         {
             ret[key] = newCopy;

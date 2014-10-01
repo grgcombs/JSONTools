@@ -20,9 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		153C3D9B7DE64C5291E571F5 /* Pods-JSONToolsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONToolsTests.xcconfig"; path = "Pods/Pods-JSONToolsTests.xcconfig"; sourceTree = "<group>"; };
+		2A04D7DA4D577E304B768C24 /* Pods-JSONToolsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONToolsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JSONToolsTests/Pods-JSONToolsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		37A5004E18FC3FC700A15B0F /* JSONPatchApplyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONPatchApplyTests.m; sourceTree = "<group>"; };
 		37A5005218FC9E0200A15B0F /* JSONPatchGenerateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONPatchGenerateTests.m; sourceTree = "<group>"; };
+		37B7C5F919DCB7CD00395110 /* Pods.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		37B7C5FA19DCB7E000395110 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		37BDF4C018FAF1DD00BF9705 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37BDF4CD18FAF1DD00BF9705 /* JSONToolsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONToolsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37BDF4CE18FAF1DD00BF9705 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -32,8 +34,10 @@
 		37BDF4DC18FAF1DD00BF9705 /* JSONPointerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONPointerTests.m; sourceTree = "<group>"; };
 		37C8BA2C19106B74004D3E23 /* JSONSchemaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaTests.m; sourceTree = "<group>"; };
 		39FDE358F51848868E4334BA /* libPods-JSONToolsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JSONToolsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		83997C626DB14CA4A0659824 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		8A736BF437437DE4CA84B315 /* Pods-JSONToolsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONToolsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JSONToolsTests/Pods-JSONToolsTests.release.xcconfig"; sourceTree = "<group>"; };
+		8BAA2AFED5A38753C8438FB8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B35914385F39418EB4099917 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA415B43DA52B212F752F99D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,14 +56,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F23DB1222AFCB8158F59DB7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8BAA2AFED5A38753C8438FB8 /* Pods.debug.xcconfig */,
+				EA415B43DA52B212F752F99D /* Pods.release.xcconfig */,
+				2A04D7DA4D577E304B768C24 /* Pods-JSONToolsTests.debug.xcconfig */,
+				8A736BF437437DE4CA84B315 /* Pods-JSONToolsTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		37BDF4B418FAF1DD00BF9705 = {
 			isa = PBXGroup;
 			children = (
 				37BDF4D618FAF1DD00BF9705 /* JSONToolsTests */,
 				37BDF4BF18FAF1DD00BF9705 /* Frameworks */,
 				37BDF4BE18FAF1DD00BF9705 /* Products */,
-				83997C626DB14CA4A0659824 /* Pods.xcconfig */,
-				153C3D9B7DE64C5291E571F5 /* Pods-JSONToolsTests.xcconfig */,
+				37B7C5F919DCB7CD00395110 /* Pods.release.xcconfig */,
+				37B7C5FA19DCB7E000395110 /* Pods.debug.xcconfig */,
+				2F23DB1222AFCB8158F59DB7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,7 +193,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-JSONToolsTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JSONToolsTests/Pods-JSONToolsTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E5FDDCD39D4A4E08B2DE1D8B /* Check Pods Manifest.lock */ = {
@@ -299,7 +315,7 @@
 		};
 		37BDF4E418FAF1DD00BF9705 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 153C3D9B7DE64C5291E571F5 /* Pods-JSONToolsTests.xcconfig */;
+			baseConfigurationReference = 2A04D7DA4D577E304B768C24 /* Pods-JSONToolsTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -317,7 +333,7 @@
 		};
 		37BDF4E518FAF1DD00BF9705 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 153C3D9B7DE64C5291E571F5 /* Pods-JSONToolsTests.xcconfig */;
+			baseConfigurationReference = 8A736BF437437DE4CA84B315 /* Pods-JSONToolsTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

@@ -9,7 +9,7 @@
 
 @implementation JSONDeepMutable
 
-+ (id)copyAsDeeplyMutableValue:(id)oldValue
++ (id)copyAsDeeplyMutableValue:(id)oldValue throwsExceptions:(BOOL)throwsExceptions
 {
     id newCopy = nil;
 
@@ -26,7 +26,7 @@
         newCopy = [oldValue copy];
     }
     
-    if (!newCopy)
+    if (!newCopy && throwsExceptions)
     {
         [NSException raise:NSDestinationInvalidException format:@"Object is not mutable or copyable: %@", oldValue];
     }

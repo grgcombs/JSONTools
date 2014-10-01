@@ -21,8 +21,12 @@
  *
  *  @param oldValue A value object to (mutably) copy.
  *
+ *  @param throwsExceptions Conditionally throw exceptions if an interior 
+ *                           object isn't mutable or copyable, otherwise it 
+ *                           merely omits that object from the new collection.
+ *
  *  @return A (mutable) copy of the object.
  */
-+ (id)copyAsDeeplyMutableValue:(id)oldValue;
++ (id)copyAsDeeplyMutableValue:(id)oldValue throwsExceptions:(BOOL)throwsExceptions;
 
 @end
