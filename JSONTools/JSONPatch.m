@@ -11,6 +11,7 @@
 #import "JSONPatchDictionary.h"
 #import "JSONPatchArray.h"
 #import "JSONPointer.h"
+#import "JSONDeeplyMutable.h"
 
 @implementation JSONPatch
 
@@ -30,8 +31,19 @@
         if (!patchInfo)
             break;
 
-        NSArray *pathKeys = [patchInfo.path componentsSeparatedByString:@"/"];
         id object = collection;
+
+        if (patchInfo.path && !patchInfo.path.length)
+        {
+            // http://tools.ietf.org/html/rfc6901#section-5
+            // The following JSON strings evaluate to the accompanying values:
+            //     ""           // the whole document
+
+            result = [self applyRootLevelPatch:patchInfo toCollection:object];
+            continue;
+        }
+
+        NSArray *pathKeys = [patchInfo.path componentsSeparatedByString:@"/"];
         NSInteger t = 1;
         
         while (YES) {
@@ -40,11 +52,12 @@
                 result = @(0);
                 break;
             }
-            if (![object isKindOfClass:[NSMutableDictionary class]] &&
-                ![object isKindOfClass:[NSMutableArray class]] &&
-                [object respondsToSelector:@selector(mutableCopy)])
+            if ([self collectionNeedsMutableCopy:object])
             {
-                object = [object mutableCopy];
+                // If you get here, chances are subsequent/multiple patches won't work correctly.
+                // You should be sure to pass in a collection via -copyAsDeeplyMutable to ensure
+                // that this doesn't adversely affect you.
+                object = [object copyAsDeeplyMutableJSON];
             }
 
             if ([object isKindOfClass:[NSMutableArray class]])
@@ -65,7 +78,15 @@
                     }
                     break;
                 }
-                object = (NSMutableArray *)object[index];
+
+                NSMutableArray *thisObject = object;
+                NSMutableArray *nextObject = thisObject[index];
+                if ([self collectionNeedsMutableCopy:nextObject])
+                {
+                    nextObject = [nextObject copyAsDeeplyMutableJSON];
+                    thisObject[index] = nextObject;
+                }
+                object = nextObject;
             }
             else if ([object isKindOfClass:[NSMutableDictionary class]])
             {
@@ -82,7 +103,15 @@
                     }
                     break;
                 }
-                object = (NSMutableDictionary *)object[component];
+
+                NSMutableDictionary *thisObject = object;
+                NSMutableDictionary *nextObject = thisObject[component];
+                if ([self collectionNeedsMutableCopy:nextObject])
+                {
+                    nextObject = [nextObject copyAsDeeplyMutableJSON];
+                    thisObject[component] = nextObject;
+                }
+                object = nextObject;
             }
         }
     }
@@ -90,6 +119,57 @@
 }
 
 #pragma mark - Singular Patch
+
++ (id)applyRootLevelPatch:(JSONPatchInfo *)patchInfo toCollection:(id)collection
+{
+    if (!collection ||
+        ![collection respondsToSelector:@selector(mutableCopy)])
+    {
+        return nil;
+    }
+
+    id result = nil;
+
+    switch (patchInfo.op)
+    {
+        case JSONPatchOperationGet:
+            return [collection mutableCopy];
+            break;
+        case JSONPatchOperationTest:
+            result = @(collection == patchInfo.value || [collection isEqual:patchInfo.value]);
+            break;
+        case JSONPatchOperationAdd:
+        case JSONPatchOperationRemove:
+        case JSONPatchOperationCopy:
+        case JSONPatchOperationMove:
+        case JSONPatchOperationReplace:
+        {
+            if (![self isCompatibleCollection:collection toCollection:patchInfo.value] ||
+                ![collection respondsToSelector:@selector(removeAllObjects)])
+            {
+                result = @(NO);
+                break;
+            }
+
+            [collection removeAllObjects];
+
+            if ([collection isKindOfClass:[NSDictionary class]])
+            {
+                [collection addEntriesFromDictionary:patchInfo.value];
+                result = @([collection isEqualToDictionary:patchInfo.value]);
+            }
+            else if ([collection isKindOfClass:[NSArray class]])
+            {
+                [collection addObjectsFromArray:patchInfo.value];
+                result = @([collection isEqualToArray:patchInfo.value]);
+            }
+            break;
+        }
+        case JSONPatchOperationUndefined:
+            break;
+    }
+    return result;
+}
 
 + (id)applyPatch:(JSONPatchInfo *)patchInfo array:(NSMutableArray *)array index:(NSInteger)index collection:(id)collection stop:(BOOL *)stop
 {
@@ -337,6 +417,17 @@
         return NO;
     return ([array1 isKindOfClass:[NSArray class]] &&
             [array2 isKindOfClass:[NSArray class]]);
+}
+
++ (BOOL)collectionNeedsMutableCopy:(id)collection
+{
+    if (![collection isKindOfClass:[NSMutableDictionary class]] &&
+        ![collection isKindOfClass:[NSMutableArray class]] &&
+        [collection respondsToSelector:@selector(mutableCopy)])
+    {
+        return YES;
+    }
+    return NO;
 }
 
 @end

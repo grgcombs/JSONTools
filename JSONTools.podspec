@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "JSONTools"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "JSON Patch, JSON Pointer, and JSON Schema Validation in Objective-C"
   s.description  = <<-DESC
                   This Objective-C library is a collection of classes and categories that implement 
