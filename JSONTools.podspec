@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "JSONTools"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "JSON Patch, JSON Pointer, and JSON Schema Validation in Objective-C"
   s.description  = <<-DESC
                   This Objective-C library is a collection of classes and categories that implement 
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/grgcombs/JSONTools.git", :tag => "v#{s.version}" }
   s.source_files = "JSONTools/*.{h,m}"
-  s.dependency "KiteJSONValidator", '~> 0.1.2-Pod'
+  s.dependency "KiteJSONValidator", '~> 0.2.2'
 
   s.xcconfig     = {
     'ONLY_ACTIVE_ARCH' => 'NO'
