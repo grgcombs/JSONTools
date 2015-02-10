@@ -30,4 +30,16 @@
  */
 - (NSMutableArray *)copyAsDeeplyMutableJSONWithExceptions:(BOOL)throwsExceptions;
 
+/**
+ *  Recurses into the receiver's contents and makes an immutable copy of each value it encounters.
+ *  Throws an exception if any interior value objects aren't copyable in some way. This method
+ *  only ensuring there are no mutable copies of objects.
+ *
+ *  @param throwsExceptions Conditionally throw exceptions if an interior object isn't copyable,
+ *                          otherwise it merely omits that object from the new collection.
+ *
+ *  @return A deeply immutable copy of the receiver's contents.
+ */
+- (NSArray *)copyAsDeeplyImmutableJSONWithExceptions:(BOOL)throwsExceptions;
+
 @end

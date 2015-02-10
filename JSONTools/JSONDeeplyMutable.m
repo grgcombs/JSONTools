@@ -34,4 +34,25 @@
     return newCopy;
 }
 
++ (id)copyAsDeeplyImmutableValue:(id)oldValue throwsExceptions:(BOOL)throwsExceptions
+{
+    id newCopy = nil;
+
+    if ([oldValue respondsToSelector: @selector(copyAsDeeplyImmutableJSONWithExceptions:)])
+    {
+        newCopy = [oldValue copyAsDeeplyImmutableJSONWithExceptions:throwsExceptions];
+    }
+    else if ([oldValue conformsToProtocol:@protocol(NSCopying)])
+    {
+        newCopy = [oldValue copy];
+    }
+
+    if (!newCopy && throwsExceptions)
+    {
+        [NSException raise:NSDestinationInvalidException format:@"Object is not copyable: %@", oldValue];
+    }
+
+    return newCopy;
+}
+
 @end

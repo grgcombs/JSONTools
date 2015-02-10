@@ -29,4 +29,18 @@
     return ret;
 }
 
+- (NSArray *)copyAsDeeplyImmutableJSONWithExceptions:(BOOL)throwsExceptions
+{
+    NSMutableArray* ret = [[NSMutableArray alloc] init];
+    for (id oldValue in self)
+    {
+        id newCopy = [JSONDeepMutable copyAsDeeplyImmutableValue:oldValue throwsExceptions:throwsExceptions];
+        if (newCopy)
+        {
+            [ret addObject:newCopy];
+        }
+    }
+    return [ret copy];
+}
+
 @end

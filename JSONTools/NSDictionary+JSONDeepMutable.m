@@ -30,4 +30,19 @@
     return ret;
 }
 
+- (NSDictionary *)copyAsDeeplyImmutableJSONWithExceptions:(BOOL)throwsExceptions
+{
+    NSMutableDictionary * ret = [[NSMutableDictionary alloc] init];
+
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        id newCopy = [JSONDeepMutable copyAsDeeplyImmutableValue:obj throwsExceptions:throwsExceptions];
+        if (newCopy)
+        {
+            ret[key] = newCopy;
+        }
+    }];
+
+    return [ret copy];
+}
+
 @end
