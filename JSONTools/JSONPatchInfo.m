@@ -145,6 +145,25 @@
     return token;
 }
 
+- (NSDictionary *)dictionaryRepresentation
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+
+    NSString *token = [JSONPatchInfo tokenForOperation:self.op];
+    if (token)
+        dict[@"op"] = token;
+    NSString *path = self.path;
+    if (path)
+        dict[@"path"] = path;
+    NSString *from = self.fromPath;
+    if (from)
+        dict[@"from"] = from;
+    id value = self.value;
+    if (value)
+        dict[@"value"] = value;
+    return [dict copy];
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"%@: op=%@; path=%@; from=%@; value=%@",

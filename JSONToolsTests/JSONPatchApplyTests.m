@@ -114,6 +114,30 @@
     XCTAssertEqualObjects(obj, expected, @"Failed to apply replace patch, expected %@, found %@", expected, obj);
 }
 
+- (void)testShouldApplyReplaceInNestedArray
+{
+    NSMutableDictionary *obj = [@{@"list": @[@{@"id": @1},
+                                             @{@"id": @2},
+                                             @{@"id": @3}]} copyAsDeeplyMutableJSON];
+    NSDictionary *patch = @{
+                            @"op": @"replace",
+                            @"path": @"/list/1",
+                            @"value": @{@"id": @4}
+                            };
+
+    NSDictionary *expected = @{@"list": @[@{@"id": @1},
+                                          @{@"id": @4},
+                                          @{@"id": @3}]};
+
+    [JSONPatch applyPatches:@[patch] toCollection:obj];
+
+    NSDictionary *resultRoot = [obj copyAsDeeplyImmutableJSONWithExceptions:NO];
+    NSArray *resultArray = resultRoot[@"list"];
+
+    XCTAssertTrue([resultRoot isEqualToDictionary:expected], @"Failed to apply nested array replace patch, expected %@, found %@", expected, obj);
+    XCTAssertEqualObjects(resultArray, expected[@"list"], @"Failed to apply nested array replace patch, expected %@, found %@", expected, obj);
+}
+
 - (void)testShouldApplyTest
 {
     NSDictionary *obj = @{@"foo": @{@"bar": @[@1,@2,@5,@4]}};
