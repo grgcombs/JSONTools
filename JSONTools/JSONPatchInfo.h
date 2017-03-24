@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, JSONPatchOperation)
 
 @interface JSONPatchInfo : NSObject
 + (instancetype)newPatchInfoWithDictionary:(NSDictionary *)patch;
+- (NSDictionary *)dictionaryRepresentation;
 @property (nonatomic,copy,readonly) NSString *path;
 @property (nonatomic,copy,readonly) NSString *fromPath; // for move/copy ops
 @property (nonatomic,readonly) JSONPatchOperation op;

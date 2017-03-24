@@ -104,11 +104,13 @@
     {
         return NO;
     }
-    if (!value)
+    if (!value) // replacing an array's item with nothing is the same as deleting it
     {
         return [self removeObject:object index:index];
     }
-    return [self addObject:object index:index value:value];
+
+    [object replaceObjectAtIndex:index withObject:value];
+    return YES;
 }
 
 @end
