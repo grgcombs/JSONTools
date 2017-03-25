@@ -1,11 +1,13 @@
+osx_image: xcode8.2
 language: objective-c
 before_script:
     - export LANG=en_US.UTF-8
 before_install:
     - brew update
-    - brew uninstall xctool
-    - brew install xctool
-    - gem update cocoapods
+    - brew outdated carthage || brew upgrade carthage
+    ##- brew outdated xctool || brew upgrade xctool
 script:
-    - pod install
-    - xctool -workspace JSONToolsTests.xcworkspace -scheme JSONToolsTests -sdk iphonesimulator test
+    ##- pod install
+    ##- xctool -project JSONTools/JSONTools.xcodeproj -scheme JSONTools-iOS -sdk iphonesimulator test
+    xcodebuild test -project JSONTools/JSONTools.xcodeproj -scheme JSONTools-iOS -destination 'platform=iOS Simulator,id=1FD54EA7-5A25-4D6F-8599-D6F7687DA4EE,OS=10.2'
+
