@@ -3,7 +3,7 @@ JSON Tools (Objective-C)
 by [Gregory Combs](https://github.com/grgcombs)  
 (MIT License - 2014)
 
-[![Build Status](https://travis-ci.org/grgcombs/JSONTools.svg?branch=master)](https://travis-ci.org/grgcombs/JSONTools)
+[![Build Status](https://travis-ci.org/grgcombs/JSONTools.svg?branch=development)](https://travis-ci.org/grgcombs/JSONTools)
 
 JSON Patch, JSON Pointer, and JSON Schema Validation in Objective-C
 
