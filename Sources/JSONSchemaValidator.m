@@ -24,6 +24,27 @@
     return self;
 }
 
+-(NSDictionary *)rootSchema
+{
+    static NSDictionary * rootSchema;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSBundle *mainBundle = [NSBundle bundleForClass:[self class]];
+        NSString *rootSchemaPath = [mainBundle pathForResource:@"schema" ofType:@"" inDirectory:@"RootSchema/draft-04"];
+        NSAssert(rootSchemaPath != NULL, @"Root schema not found in bundle: %@", mainBundle.bundlePath);
+
+        NSData *rootSchemaData = [NSData dataWithContentsOfFile:rootSchemaPath];
+        NSError *error = nil;
+        rootSchema = [NSJSONSerialization JSONObjectWithData:rootSchemaData
+                                                     options:kNilOptions
+                                                       error:&error];
+        NSAssert(rootSchema != NULL, @"Root schema wasn't found", nil);
+        NSAssert([rootSchema isKindOfClass:[NSDictionary class]], @"Root schema wasn't a dictionary", nil);
+    });
+
+    return rootSchema;
+}
+
 - (BOOL)_validateJSONString:(NSString *)jsonString withSchemaDict:(NSDictionary *)schema
 {
     NSNumber *validationNumber = schema[@"maxLength"];
@@ -65,7 +86,8 @@
     if (maxLength && [maxLength respondsToSelector:@selector(intValue)])
     {
         //A string instance is valid against this keyword if its length is less than, or equal to, the value of this keyword.
-        if (jsonString.length > maxLength.intValue)
+        NSInteger uniAwareLength = [jsonString lengthOfBytesUsingEncoding:NSUTF32StringEncoding] / 4;
+        if (uniAwareLength > maxLength.intValue)
         {
             return NO;
         }
@@ -78,7 +100,8 @@
     if (minLength && [minLength respondsToSelector:@selector(intValue)])
     {
         //A string instance is valid against this keyword if its length is greater than, or equal to, the value of this keyword.
-        if (jsonString.length < minLength.intValue)
+        NSInteger uniAwareLength = [jsonString lengthOfBytesUsingEncoding:NSUTF32StringEncoding] / 4;
+        if (uniAwareLength < minLength.intValue)
         {
             return NO;
         }

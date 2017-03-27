@@ -19,8 +19,9 @@ FOUNDATION_EXPORT const unsigned char JSONToolsVersionString[];
 #import <JSONTools/NSArray+JSONPointer.h>
 #import <JSONTools/NSDictionary+JSONPointer.h>
 
-
+// JSONPatch
 #import <JSONTools/JSONPatch.h>
 #import <JSONTools/JSONDeeplyMutable.h>
 
-
+// JSONSchema
+#import <JSONTools/JSONSchemaValidator.h>
