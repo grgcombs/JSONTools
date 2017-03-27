@@ -10,6 +10,5 @@ script:
     #### - pod install
     # Carthage
     - carthage checkout --no-use-binaries --color auto
-
-    xcodebuild test -project JSONTools.xcodeproj -scheme JSONTools-iOS -destination 'platform=iOS Simulator,id=1FD54EA7-5A25-4D6F-8599-D6F7687DA4EE,OS=10.2'
+    - xcodebuild test -project JSONTools.xcodeproj -scheme JSONTools-iOS -destination 'platform=iOS Simulator,id=1FD54EA7-5A25-4D6F-8599-D6F7687DA4EE,OS=10.2'
 
